@@ -33,14 +33,14 @@ fun PreviousButton(
                 .height(50.dp),
             onClick = navigateBackToPreviousCard,
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFF1AA3E5)
+                containerColor = Color.LightGray
             )
         ) {
             Box(
                 modifier = modifier
                     .fillMaxWidth()
                     .height(50.dp)
-                    .background(Color(0xFF1AA3E5)),
+                    .background(Color.LightGray),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CardFront(
-    question: String = "What is the capital of Algeria?"
+    question: String = "What is the capital of Algeria?",
+    deleteNote: () -> Unit = {},
+    editNote: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -44,14 +46,22 @@ fun CardFront(
             contentAlignment = Alignment.BottomEnd
         ) {
             Row {
-                IconButton(onClick = { }) {
+                IconButton(
+                    onClick = {
+                        deleteNote()
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Delete",
                         tint = Color.Red
                     )
                 }
-                IconButton(onClick = { }) {
+                IconButton(
+                    onClick = {
+                        editNote()
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
                         contentDescription = "Edit",

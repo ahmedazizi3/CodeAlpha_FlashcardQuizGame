@@ -22,7 +22,9 @@ fun FlashcardForm(
     modifier: Modifier = Modifier,
     question: String = "What is the capital of Algeria?",
     answer: String = "Algiers",
-    flipped: Boolean = false
+    flipped: Boolean = false,
+    editNote: () -> Unit = {},
+    deleteNote: () -> Unit = {}
 ) {
     val rotation by animateFloatAsState(
         targetValue = if (flipped) 180f else 0f,
@@ -50,7 +52,11 @@ fun FlashcardForm(
             elevation = CardDefaults.cardElevation(defaultElevation = 20.dp)
         ) {
             if (rotation <= 90f) {
-                CardFront(question = question)
+                CardFront(
+                    question = question,
+                    deleteNote = deleteNote,
+                    editNote = editNote
+                )
             } else {
                 CardBack(answer = answer)
             }

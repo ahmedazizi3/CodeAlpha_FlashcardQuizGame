@@ -62,8 +62,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
-//    Navigation
-    implementation(libs.androidx.navigation.compose)
 
 //    ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -85,8 +83,5 @@ dependencies {
 
 //    Splash Screen
     implementation(libs.androidx.core.splashscreen)
-
-
-
 
 }

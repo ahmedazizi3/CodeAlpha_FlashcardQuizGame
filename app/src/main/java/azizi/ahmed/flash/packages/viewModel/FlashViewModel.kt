@@ -51,4 +51,23 @@ class FlashViewModel @Inject constructor(private val repository: FlashRepository
             it.flashcardId.toString() == flashcardId
         }
     }
+
+
+
+    private val _currentIndex = MutableStateFlow(0)
+    val currentIndex = _currentIndex.asStateFlow()
+
+    fun nextCard() {
+        if (_flashcardsList.value.isNotEmpty()) {
+            _currentIndex.value = (_currentIndex.value + 1) % _flashcardsList.value.size
+        }
+    }
+
+    fun previousCard() {
+        if (_flashcardsList.value.isNotEmpty()) {
+            _currentIndex.value =
+                if (_currentIndex.value - 1 < 0) _flashcardsList.value.size - 1
+                else _currentIndex.value - 1
+        }
+    }
 }

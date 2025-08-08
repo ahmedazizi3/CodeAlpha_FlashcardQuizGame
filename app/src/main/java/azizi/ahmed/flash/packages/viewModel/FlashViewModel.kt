@@ -12,51 +12,47 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FlashViewModel @Inject constructor(private val repository: FlashRepository): ViewModel() {
+class FlashViewModel @Inject constructor(
+    private val repository: FlashRepository
+) : ViewModel() {
+
     private val _flashcardsList = MutableStateFlow<List<Flashcard>>(emptyList())
     val flashcardsList = _flashcardsList.asStateFlow()
 
+    private val _currentIndex = MutableStateFlow(0)
+    val currentIndex = _currentIndex.asStateFlow()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getAllFlashcards().collect {listOfFlashcards ->
+            repository.getAllFlashcards().collect { listOfFlashcards ->
                 _flashcardsList.value = listOfFlashcards
             }
         }
     }
 
-//    Create a new Flashcard
+    // Create a new Flashcard
     fun addFlashcard(flashcard: Flashcard) {
         viewModelScope.launch {
             repository.addFlashcard(flashcard)
         }
     }
 
-//    Update an existing Flashcard
+    // Update an existing Flashcard
     fun updateFlashcard(flashcard: Flashcard) {
         viewModelScope.launch {
             repository.updateFlashcard(flashcard)
         }
     }
 
-//    Delete a Flashcard
+    // Delete a Flashcard
     fun deleteFlashcard(flashcard: Flashcard) {
         viewModelScope.launch {
             repository.deleteFlashcard(flashcard)
         }
     }
 
-//    Get a Flashcard by ID
-    fun getFlashcard(flashcardId: String): Flashcard? {
-        return _flashcardsList.value.find {
-            it.flashcardId.toString() == flashcardId
-        }
-    }
 
-
-
-    private val _currentIndex = MutableStateFlow(0)
-    val currentIndex = _currentIndex.asStateFlow()
-
+    // Navigation
     fun nextCard() {
         if (_flashcardsList.value.isNotEmpty()) {
             _currentIndex.value = (_currentIndex.value + 1) % _flashcardsList.value.size
@@ -68,6 +64,22 @@ class FlashViewModel @Inject constructor(private val repository: FlashRepository
             _currentIndex.value =
                 if (_currentIndex.value - 1 < 0) _flashcardsList.value.size - 1
                 else _currentIndex.value - 1
+        }
+    }
+
+    // Safely delete current card
+    fun safeDeleteCurrentCard() {
+        val cards = _flashcardsList.value
+        if (cards.isNotEmpty()) {
+            val indexToDelete = _currentIndex.value.coerceAtMost(cards.size - 1)
+
+            if (_currentIndex.value >= cards.size - 1 && _currentIndex.value > 0) {
+                previousCard()
+            }
+
+            if (indexToDelete in cards.indices) {
+                deleteFlashcard(cards[indexToDelete])
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -68,6 +69,7 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { isAddNoteDialogVisible.value = true },
+                modifier = Modifier.testTag("fabAdd"),
                 shape = CircleShape,
                 containerColor = Color(0xFF1AA3E5),
                 contentColor = Color.White
@@ -81,7 +83,8 @@ fun HomeScreen(
             modifier = modifier
                 .fillMaxSize()
                 .background(Color.White)
-                .padding(8.dp),
+                .padding(8.dp)
+                .testTag("homeScreen"),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Add Note Dialog
@@ -110,7 +113,9 @@ fun HomeScreen(
             // Delete Note Dialog
             if (isDeleteNoteDialogVisible.value) {
                 AlertDialog(
-                    modifier = modifier.fillMaxWidth(),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .testTag("dialogDelete"),
                     containerColor = Color.White,
                     onDismissRequest = {
                         isDeleteNoteDialogVisible.value = false
@@ -145,6 +150,7 @@ fun HomeScreen(
                                     answer.value = ""
                                     Toast.makeText(context, "Note deleted", Toast.LENGTH_SHORT).show()
                                 },
+                                modifier = Modifier.testTag("btnDeleteConfirm"),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.White,
                                     contentColor = Color(0xFF1AA3E5)
@@ -157,6 +163,7 @@ fun HomeScreen(
                                 onClick = {
                                     isDeleteNoteDialogVisible.value = false
                                 },
+                                modifier = Modifier.testTag("btnDeleteCancel"),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.White,
                                     contentColor = Color(0xFF1AA3E5)
@@ -257,6 +264,7 @@ fun HomeScreen(
             // Show / Hide Answer
             if (flashcards.isNotEmpty()) {
                 ShowOrHideAnswerButton(
+                    modifier = Modifier.testTag("btnShowOrHideAnswer"),
                     flipped = flipped,
                     showOrHideAnswer = {
                         flipped = !flipped

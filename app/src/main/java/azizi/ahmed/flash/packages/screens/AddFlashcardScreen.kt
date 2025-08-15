@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,8 @@ fun AddFlashcardScreen(
     ) {
         AlertDialog(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag("dialogAdd"),
             containerColor = Color.White,
             onDismissRequest = {
                 onDismissRequest()
@@ -75,7 +77,8 @@ fun AddFlashcardScreen(
                             question.value = qst
                         },
                         modifier = modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .testTag("inputQuestion"),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF1AA3E5),
@@ -117,7 +120,8 @@ fun AddFlashcardScreen(
                             answer.value = ans
                         },
                         modifier = modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .testTag("inputAnswer"),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF1AA3E5),
@@ -141,6 +145,7 @@ fun AddFlashcardScreen(
                 }
             },
             confirmButton = {
+                val isValid = question.value.isNotBlank() && answer.value.isNotBlank()
                 Row(
                     modifier = modifier
                         .fillMaxWidth(),
@@ -152,6 +157,8 @@ fun AddFlashcardScreen(
                             question.value = ""
                             answer.value = ""
                         },
+                        modifier = modifier.testTag("btnAdd"),
+                        enabled = isValid,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
                             contentColor = Color(0xFF1AA3E5)
@@ -164,6 +171,7 @@ fun AddFlashcardScreen(
                         onClick = {
                             onDismissRequest()
                         },
+                        modifier = modifier.testTag("btnCancelAdd"),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
                             contentColor = Color(0xFF1AA3E5)

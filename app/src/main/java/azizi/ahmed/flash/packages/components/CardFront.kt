@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,8 @@ fun CardFront(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color.White)
+            .testTag("cardFront"),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -37,7 +39,8 @@ fun CardFront(
             color = Color.Black,
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.testTag("txtQuestion")
         )
         Box(
             modifier = Modifier
@@ -49,7 +52,8 @@ fun CardFront(
                 IconButton(
                     onClick = {
                         deleteNote()
-                    }
+                    },
+                    modifier = Modifier.testTag("btnDelete")
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
@@ -60,7 +64,8 @@ fun CardFront(
                 IconButton(
                     onClick = {
                         editNote()
-                    }
+                    },
+                    modifier = Modifier.testTag("btnEdit")
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,

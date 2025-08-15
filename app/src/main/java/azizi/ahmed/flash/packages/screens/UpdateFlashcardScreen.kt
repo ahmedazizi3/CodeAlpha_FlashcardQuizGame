@@ -18,9 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,14 +41,15 @@ fun UpdateFlashcardScreen(
     ) {
         AlertDialog(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag("dialogUpdate"),
             containerColor = Color.White,
             onDismissRequest = {
                 onDismissRequest()
             },
             title = {
                 Text(
-                    text = "Add Flashcard",
+                    text = "Update Flashcard",
                     color = Color(0xFF1AA3E5),
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
@@ -75,7 +78,8 @@ fun UpdateFlashcardScreen(
                             question.value = qst
                         },
                         modifier = modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .testTag("inputQuestionUpdate"),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF1AA3E5),
@@ -117,7 +121,8 @@ fun UpdateFlashcardScreen(
                             answer.value = ans
                         },
                         modifier = modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .testTag("inputAnswerUpdate"),
                         shape = RoundedCornerShape(8.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = Color(0xFF1AA3E5),
@@ -141,6 +146,7 @@ fun UpdateFlashcardScreen(
                 }
             },
             confirmButton = {
+                val isValid = question.value.isNotBlank() && answer.value.isNotBlank()
                 Row(
                     modifier = modifier
                         .fillMaxWidth(),
@@ -152,6 +158,8 @@ fun UpdateFlashcardScreen(
                             question.value = ""
                             answer.value = ""
                         },
+                        modifier = modifier.testTag("btnUpdate"),
+                        enabled = isValid,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
                             contentColor = Color(0xFF1AA3E5)
@@ -164,6 +172,7 @@ fun UpdateFlashcardScreen(
                         onClick = {
                             onDismissRequest()
                         },
+                        modifier = modifier.testTag("btnCancelUpdate"),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
                             contentColor = Color(0xFF1AA3E5)

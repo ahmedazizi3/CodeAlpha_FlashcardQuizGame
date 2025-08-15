@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import azizi.ahmed.flash.packages.screens.HomeScreen
 import azizi.ahmed.flash.ui.theme.FlashTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             FlashTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .testTag("rootSurface"),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     HomeScreen()

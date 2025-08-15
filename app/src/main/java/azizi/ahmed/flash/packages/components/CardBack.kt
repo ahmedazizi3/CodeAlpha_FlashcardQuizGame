@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -21,7 +22,8 @@ fun CardBack(
         modifier = Modifier
             .fillMaxSize()
             .graphicsLayer { rotationY = 180f }
-            .background(Color.White),
+            .background(Color.White)
+            .testTag("cardBack"),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -29,7 +31,8 @@ fun CardBack(
             color = Color.Black,
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.testTag("txtAnswer")
         )
     }
 }

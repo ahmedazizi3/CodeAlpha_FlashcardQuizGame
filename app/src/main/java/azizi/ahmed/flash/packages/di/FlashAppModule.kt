@@ -29,6 +29,6 @@ object FlashAppModule {
                 context,
                 FlashDatabase::class.java,
                 "FlashDatabase")
-            .fallbackToDestructiveMigration(false)
+            .fallbackToDestructiveMigration()
             .build()
 }

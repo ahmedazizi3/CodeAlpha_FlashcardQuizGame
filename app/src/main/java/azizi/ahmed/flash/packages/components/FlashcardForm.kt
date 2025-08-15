@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -38,12 +39,14 @@ fun FlashcardForm(
         modifier = modifier
             .fillMaxWidth()
             .height(250.dp)
-            .padding(8.dp),
+            .padding(8.dp)
+            .testTag("flashcardForm"),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
             modifier = Modifier
                 .fillMaxSize()
+                .testTag("flashcardCard")
                 .graphicsLayer {
                     rotationY = rotation
                     cameraDistance = 12 * density
